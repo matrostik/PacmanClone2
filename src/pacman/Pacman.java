@@ -3,12 +3,13 @@ package pacman;
 import java.awt.Graphics;
 import java.awt.Image;
 
-
-public class Pacman extends Hero implements IGameObject {
-	private int type; // Пасть открыта/закрыта
+public class Pacman extends Hero implements IGameObject 
+{
+	private int type;
 	private Sprite sprites[][];
 
-	public Pacman(Point p, int direction,Image images[][]) {
+	public Pacman(Point p, int direction,Image images[][]) 
+	{
 		super(p,direction);
 
 		sprites = new Sprite[4][2];
@@ -16,12 +17,12 @@ public class Pacman extends Hero implements IGameObject {
 			for(int j = 0; j < images[i].length; j++)
 				sprites[i][j] = new Sprite(images[i][j]);
 		}
-
 		type = 0;
 	}
 
 	@Override
-	public void draw(Graphics g) {
+	public void draw(Graphics g) 
+	{
 		Point p = getCurCoord();
 		int x = p.x * 30;
 		int y = p.y * 30;

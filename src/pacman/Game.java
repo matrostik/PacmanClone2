@@ -24,7 +24,7 @@ public class Game extends Canvas implements Runnable {
 
 	private GameMap map;
 	private IGameObject objects[];
-	private Pacman pacman; // РёРЅРґРµРєСЃС‹ РІ objects
+	private Pacman pacman;
 	private Ghost ghost[]; 
 
 	public void pacmanIsOn(Point curCoord) {
@@ -40,10 +40,12 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 
-	public static void stopGame() {
+	public static void stopGame() 
+	{
 		Game.running = false;
 	}
-	private void theEnd() {
+	private void theEnd() 
+	{
 		BufferStrategy bs = getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.black);
@@ -55,15 +57,17 @@ public class Game extends Canvas implements Runnable {
 			str = "YOU WON";
 		else
 			str = "YOU LOST";
-
+		Sound.playDie();
 		g.drawString(str, Constants.Width/2-str.length()*10, Constants.Height/2-10);
 		g.dispose();
 		bs.show();
 	}
 
-	public void start() {
+	public void start() 
+	{
 		running = true;
 		new Thread(this).start();
+		Sound.playIntro();
 	}
 
 	public void run() {
@@ -72,7 +76,6 @@ public class Game extends Canvas implements Runnable {
 			update();
 			render();
 		}
-
 		theEnd();
 	}
 	public void init() { // РћРїС‚РёРјРёР·РёСЂРѕРІР°С‚СЊ(РїРµСЂРµРґРµР»Р°С‚СЊ?)
@@ -130,6 +133,7 @@ public class Game extends Canvas implements Runnable {
 		bs.show();
 		addKeyListener(new KeyboardHandler());
 	}
+	
 	private class KeyboardHandler extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -173,7 +177,7 @@ public class Game extends Canvas implements Runnable {
 		BufferedImage sourceImage = null;
 
 		try {
-			URL url = Game.class.getResource("/pacman/"+path);
+			URL url = Game.class.getResource("/pacman/files/" + path);
 			sourceImage = ImageIO.read(url);
 		}
 		catch(IOException e) {
@@ -203,7 +207,7 @@ public class Game extends Canvas implements Runnable {
 			objects[ map.getNumOfObjOn(gh.getCurCoord())].draw(g);
 			gh.draw(g);
 		}
-		
+
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 30, 30);
 		g.setColor(Color.white);

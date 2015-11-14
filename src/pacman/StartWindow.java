@@ -16,9 +16,11 @@ public class StartWindow {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		try{
-			BufferedReader br = new BufferedReader(new InputStreamReader(StartWindow.class.getResourceAsStream("/pacman/config")));
+	public static void main(String[] args) 
+	{
+		try
+		{
+			BufferedReader br = new BufferedReader(new InputStreamReader(StartWindow.class.getResourceAsStream("/pacman/files/config")));
 			String s = br.readLine(); // Длина
 			int len = Integer.parseInt(s);
 			Constants.LenOfMap = len;
@@ -48,7 +50,7 @@ public class StartWindow {
 		frame.setResizable(false);
 		frame.setVisible(true);
 
-		JButton b = new JButton("Start");
+		JButton b = new JButton("START GAME");
 		b.setSize(40,40);
 		b.setLocation(12,12);
 		b.setVisible(true);
@@ -61,8 +63,9 @@ public class StartWindow {
 		frame.getContentPane().add(b);
 	}
 
-	private static void newGame() {
-		JFrame frame = new JFrame(" ");
+	private static void newGame() 
+	{
+		JFrame frame = new JFrame("PACMAN");
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 		frame.setSize(250,250);
