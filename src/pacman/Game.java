@@ -1,5 +1,4 @@
 package pacman;
-
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
@@ -12,11 +11,10 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
 
-
-public class Game extends Canvas implements Runnable {
+public class Game extends Canvas implements Runnable 
+{
 	private static final long serialVersionUID = 1;
 	public static int SCORES = 0;
 	private static boolean running;
@@ -27,8 +25,10 @@ public class Game extends Canvas implements Runnable {
 	private Pacman pacman;
 	private Ghost ghost[]; 
 
-	public void pacmanIsOn(Point curCoord) {
-		if(map.foodIsOn(curCoord)) {
+	public void pacmanIsOn(Point curCoord) 
+	{
+		if(map.foodIsOn(curCoord)) 
+		{
 			SCORES--;
 			if(SCORES == 0) {
 				win = true;
@@ -44,6 +44,10 @@ public class Game extends Canvas implements Runnable {
 	{
 		Game.running = false;
 	}
+
+	/*
+	 * Draw end of the game
+	 */
 	private void theEnd() 
 	{
 		BufferStrategy bs = getBufferStrategy();
@@ -70,22 +74,26 @@ public class Game extends Canvas implements Runnable {
 		Sound.playIntro();
 	}
 
-	public void run() {
+	public void run() 
+	{
 		init();
-		while(running) {
+		while(running) 
+		{
 			update();
 			render();
 		}
 		theEnd();
 	}
-	public void init() { // РћРїС‚РёРјРёР·РёСЂРѕРІР°С‚СЊ(РїРµСЂРµРґРµР»Р°С‚СЊ?)
+
+	public void init() 
+	{
 		running = true;
 		win = false;
 		Image[][] pacmanImages = getPacmanImages();
 		Image[] ghostImages = getGhostImages();
 
 		createBufferStrategy(2);
-		requestFocus(); // Р”РµР»Р°РµС‚ РѕСЃРЅРѕРІРЅС‹Рј (С„РѕРєСѓСЃРёСЂСѓРµС‚?)
+		requestFocus();
 		BufferStrategy bs = getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.black);
@@ -96,10 +104,11 @@ public class Game extends Canvas implements Runnable {
 		map = new GameMap();
 		ghost = new Ghost[Constants.GhostsCount];
 
-		int indOfObj = 0; // Р�РЅРґРµРєСЃ РґР»СЏ objects
-		int indOfGhost = 0;//РїСЂРёР·СЂР°РєРё
+		int indOfObj = 0; 
+		int indOfGhost = 0;
 		for(int i = 0; i < lenOfMap; i++)
-			for(int j = 0; j < lenOfMap; j++) {
+			for(int j = 0; j < lenOfMap; j++) 
+			{
 				char value = Constants.TextOfMap[i][j];
 				Point p = new Point(j,i);
 
@@ -133,27 +142,24 @@ public class Game extends Canvas implements Runnable {
 		bs.show();
 		addKeyListener(new KeyboardHandler());
 	}
-	
-	private class KeyboardHandler extends KeyAdapter {
-		public void keyPressed(KeyEvent e) {
-			if(e.getKeyCode() == KeyEvent.VK_LEFT) {
+
+	private class KeyboardHandler extends KeyAdapter 
+	{
+		public void keyPressed(KeyEvent e) 
+		{
+			if(e.getKeyCode() == KeyEvent.VK_LEFT) 
 				pacman.setDirection(Constants.Left);
-				return;
-			}
-			if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			else if(e.getKeyCode() == KeyEvent.VK_RIGHT) 
 				pacman.setDirection(Constants.Right);
-				return;
-			}
-			if(e.getKeyCode() == KeyEvent.VK_DOWN) {
+			else if(e.getKeyCode() == KeyEvent.VK_DOWN) 
 				pacman.setDirection(Constants.Down);
-				return;
-			}
-			//else
-			pacman.setDirection(Constants.Up);
+			else
+				pacman.setDirection(Constants.Up);
 		}
 	}
 
-	private Image[] getGhostImages() {
+	private Image[] getGhostImages() 
+	{
 		Image ar[] = new Image[4];
 		ar[0] = getImage("ghost_u.png");
 		ar[1] = getImage("ghost_r.png");
@@ -161,7 +167,9 @@ public class Game extends Canvas implements Runnable {
 		ar[3] = getImage("ghost_l.png");
 		return ar;
 	}
-	private Image[][] getPacmanImages() {
+
+	private Image[][] getPacmanImages() 
+	{
 		Image ar[][] = new Image[4][2];
 		ar[0][0] = getImage("pacman_u_o.png");
 		ar[0][1] = getImage("pacman_u_c.png");
@@ -173,30 +181,33 @@ public class Game extends Canvas implements Runnable {
 		ar[3][1] = getImage("pacman_l_c.png");
 		return ar;
 	}
-	private Image getImage(String path) {
-		BufferedImage sourceImage = null;
 
-		try {
+	private Image getImage(String path) 
+	{
+		BufferedImage sourceImage = null;
+		try 
+		{
 			URL url = Game.class.getResource("/pacman/files/" + path);
 			sourceImage = ImageIO.read(url);
 		}
-		catch(IOException e) {
+		catch(IOException e) 
+		{
 			e.printStackTrace();
 		}
-
 		Image result = Toolkit.getDefaultToolkit().createImage(sourceImage.getSource());
 		return result;
 	}
 
-	private void render() { 
+	private void render() 
+	{ 
 		BufferStrategy bs = getBufferStrategy();
 		Graphics g = bs.getDrawGraphics();
-		objects[ map.getNumOfObjOn(pacman.getPrevCoord()) ].draw(g);
+		objects[map.getNumOfObjOn(pacman.getPrevCoord())].draw(g);
 
-		//objects[ map.getNumOfObjOn(pacman.getCurCoord())].draw(g);
 		pacman.draw(g);
 
-		for(int i = 0; i < Constants.GhostsCount; i ++) {
+		for(int i = 0; i < Constants.GhostsCount; i ++) 
+		{
 			Ghost gh = ghost[i];
 			Point previous = gh.getPrevCoord();
 			Point current = gh.getCurCoord();
@@ -207,7 +218,7 @@ public class Game extends Canvas implements Runnable {
 			objects[ map.getNumOfObjOn(gh.getCurCoord())].draw(g);
 			gh.draw(g);
 		}
-
+		// draw score
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 30, 30);
 		g.setColor(Color.white);
@@ -215,23 +226,28 @@ public class Game extends Canvas implements Runnable {
 		g.drawString(Integer.toString(SCORES),0, 22);
 		g.dispose();
 		bs.show();
-		try {
+		try 
+		{
 			Thread.sleep(Constants.GameSpeed);
 		}
-		catch(Exception e) {
-			// Do something
+		catch(Exception e) 
+		{
+			System.out.println(" Error: " + e.getMessage()); 
 		}
 	}
-	private void update() {
+	
+	private void update() 
+	{
 		pacman.move();
 		map.heroMoved(pacman);
 		Point pacmanCoord = pacman.getCurCoord();
 		pacmanIsOn(pacmanCoord);
 
-		for(int i = 0; i < Constants.GhostsCount; i++) {
+		for(int i = 0; i < Constants.GhostsCount; i++) 
+		{
 			ghost[i].move();
 			map.heroMoved(ghost[i]);
-			if(pacmanCoord.onOneLineWith(ghost[i].getCurCoord())  &&  map.lineIsFree(pacmanCoord, ghost[i].getCurCoord()))
+			if(pacmanCoord.onOneLineWith(ghost[i].getCurCoord()) && map.lineIsFree(pacmanCoord, ghost[i].getCurCoord()))
 				ghost[i].pacmanIsVisible(pacmanCoord, pacman.getDirection());
 			ghost[i].launchAI();
 		}

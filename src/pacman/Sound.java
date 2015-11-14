@@ -1,5 +1,4 @@
 package pacman;
-
 import java.net.URL;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
@@ -34,14 +33,14 @@ public class Sound
 		try 
 		{ 
 			sound_player = MidiSystem.getSequencer();
-			sound_player.open() ;                     
-			currentSound= MidiSystem.getSequence(sound) ; 
-			sound_player.setSequence(currentSound) ;
-			sound_player.start() ;
+			sound_player.open();                 
+			currentSound= MidiSystem.getSequence(sound); 
+			sound_player.setSequence(currentSound);
+			sound_player.start();
 		} 
 		catch ( Exception exc ) 
 		{ 
-			System.out.println( " Error: " + exc.getMessage() ) ; 
+			System.out.println( " Error: " + exc.getMessage()); 
 		}
 	}    
 }

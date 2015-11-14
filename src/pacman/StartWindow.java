@@ -1,5 +1,4 @@
 package pacman;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
@@ -7,12 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-
-public class StartWindow {
+public class StartWindow 
+{
 	/**
 	 * @param args
 	 */
@@ -36,12 +34,12 @@ public class StartWindow {
 				s.getChars(0,len,Constants.TextOfMap[i], 0);
 			}
 		}
-		catch(Exception e) {
+		catch(Exception e) 
+		{
 			System.out.println("Error: file");
 			e.printStackTrace();
 			return;
 		}
-
 
 		JFrame frame = new JFrame(Constants.Title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,12 +52,13 @@ public class StartWindow {
 		b.setSize(40,40);
 		b.setLocation(12,12);
 		b.setVisible(true);
-		b.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		b.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 				newGame();
 			}
 		});
-
 		frame.getContentPane().add(b);
 	}
 
