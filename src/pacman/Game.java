@@ -62,7 +62,7 @@ public class Game extends Canvas implements Runnable
 		else
 			str = "YOU LOST";
 		Sound.playDie();
-		g.drawString(str, Constants.Width/2-str.length()*10, Constants.Height/2-10);
+		g.drawString(str, Constants.Width/2-str.length()*10+15, Constants.Height/2-10);
 		g.dispose();
 		bs.show();
 	}
@@ -219,11 +219,11 @@ public class Game extends Canvas implements Runnable
 			gh.draw(g);
 		}
 		// draw score
-		g.setColor(Color.black);
+		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, 30, 30);
 		g.setColor(Color.white);
-		g.setFont(new Font("Serif",0,14));
-		g.drawString(Integer.toString(SCORES),0, 22);
+		g.setFont(new Font("Serif",1,14));
+		g.drawString("Score: " + Integer.toString(SCORES),0, 15);
 		g.dispose();
 		bs.show();
 		try 

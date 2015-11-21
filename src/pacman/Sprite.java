@@ -6,7 +6,6 @@ public class Sprite
 {
 	private Image image;
 
-
 	public Sprite(Image image) 
 	{
 		this.image = image;
