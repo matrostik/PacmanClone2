@@ -19,17 +19,17 @@ public class StartWindow
 		try
 		{
 			BufferedReader br = new BufferedReader(new InputStreamReader(StartWindow.class.getResourceAsStream("/pacman/files/config")));
-			String s = br.readLine(); // Длина
+			String s = br.readLine();
 			int len = Integer.parseInt(s);
 			Constants.LenOfMap = len;
 			Constants.Width = Constants.Height = len * 30;
 			Constants.TextOfMap = new char[len][len];
-			s = br.readLine(); // Призраки
+			s = br.readLine(); 
 			Constants.GhostsCount = Integer.parseInt(s);
-			s = br.readLine(); // глубина рекурсии
+			s = br.readLine(); 
 			Constants.RecurDeep = Integer.parseInt(s);
 
-			for(int i = 0; i < len; i++) { // Копирование карты
+			for(int i = 0; i < len; i++) { 
 				s = br.readLine();
 				s.getChars(0,len,Constants.TextOfMap[i], 0);
 			}
